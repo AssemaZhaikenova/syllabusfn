@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Создать силлабус - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <h3>Шаг 1. Заполните основную часть Силлабуса.</h3>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+                </form>
+                <a class="btn btn-secondary mt-3" href="{% url 'home' %}">Вернуться на главную</a>
+            </div>
+        </div>
+    </div><br/><br/>
+{% endblock %}

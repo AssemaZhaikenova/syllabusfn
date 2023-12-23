@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="display-4">Добро пожаловать!</h1>
+        <p class="lead">Это главная страница вашего приложения. Здесь вы можете управлять своими силлабусами.</p>
+        <hr class="my-4">
+        {% if request.user.is_authenticated %}
+            <p>Если у вас еще нет силлабуса, вы можете создать новый, нажав на кнопку ниже.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'create_syllabus' %}" role="button">Создать новый силлабус</a>
+        {% else %}
+            <p>Для создания силлабуса войдите в систему.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Войти в систему</a>
+        {% endif %}
+    </div>
+{% endblock %}

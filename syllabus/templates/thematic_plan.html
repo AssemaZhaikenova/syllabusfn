@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Шаг 3. Заполните тематический план:</h3>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+                </form>
+
+                <h2 class="mt-4"></h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-fixed">
+                        <thead>
+                            <tr>
+                                <th>Неделя</th>
+                                <th>Тема / модуль</th>
+                                <th>РО курса, РО ОП</th>
+                                <th>Вопросы по теме / модулю</th>
+                                <th>Задания</th>
+                                <th>Литература</th>
+                                <th>Структура оценок</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for thematic_plan in thematic_plans %}
+                                <tr>
+                                    <td>{{ thematic_plan.week }}</td>
+                                    <td>{{ thematic_plan.topic }}</td>
+                                    <td>{{ thematic_plan.ro }}</td>
+                                    <td>{{ thematic_plan.qm }}</td>
+                                    <td>{{ thematic_plan.tasks }}</td>
+                                    <td>{{ thematic_plan.lit }}</td>
+                                    <td>{{ thematic_plan.so }}</td>
+                               <td>
+                                    <form method="post" action="{% url 'delete_thematic_plan' syllabus_id=syllabus.id plan_id=thematic_plan.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">Удалить</button>
+                                    </form>
+                               </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <a class="btn btn-secondary mt-3" href="{% url 'correspondence' syllabus_id=syllabus.id %}">Назад</a>
+                <a class="btn btn-secondary mt-3" href="{% url 'evaluation_system' syllabus_id=syllabus.id %}">Далее</a>
+            </div>
+        </div>
+    </div><br/><br/>
+{% endblock %}

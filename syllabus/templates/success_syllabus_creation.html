@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Силлабус успешно создан!</h4>
+      <p>Название силлабуса: {{ syllabus.name }}</p>
+      <p>Дисциплина: {{ syllabus.discipline }}</p>
+      <hr>
+        <p class="mb-0">Силлабус можно посмотреть или скачать <a href="{% url 'syllabus_list' %}">здесь</a>.</p>
+    </div>
+  </div>
+{% endblock %}

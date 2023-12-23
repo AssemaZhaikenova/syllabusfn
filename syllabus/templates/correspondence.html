@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Шаг 2. Заполните описание курса и Таблицу соответствия Результатов обучения курса Результатам обучения образовательной программы.</h3>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+
+                <h2 class="mt-4"></h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-fixed">
+                        <thead>
+                            <tr>
+                                <th>Описание курса</th>
+                                <th>Результаты обучения курса (РО курса)</th>
+                                <th>Результаты обучения образовательной программы (РО ОП)</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for learning_outcome in syllabus.learningoutcome_set.all %}
+                                <tr>
+                                    <td>{{ learning_outcome.course_description }}</td>
+                                    <td>{{ learning_outcome.learning_outcome_course }}</td>
+                                    <td>{{ learning_outcome.learning_outcome_program }}</td>
+                                    <td>
+                                    <form method="post" action="{% url 'delete_learning_outcome' syllabus_id=syllabus.id outcome_id=learning_outcome.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                                    </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <a class="btn btn-secondary mt-3" href="{% url 'create_syllabus' %}">Назад</a>
+                <a class="btn btn-secondary mt-3" href="{% url 'thematic_plan' syllabus_id=syllabus.id %}">Далее</a>
+            </div>
+        </div>
+    </div><br/><br/>
+{% endblock %}

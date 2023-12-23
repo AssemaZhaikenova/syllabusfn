@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h3 class="mb-4">Мои силлабусы</h3>
+        <ul class="list-group">
+            {% for syllabus in syllabuses %}
+                <li class="list-group-item">
+                    {{ syllabus.name }}
+                    <a href="{% url 'delete_syllabus' syllabus.id %}" class="btn btn-danger btn-sm float-right">Удалить</a>
+                    <a href="{% url 'syllabus_detail_edit' syllabus.id %}" class="btn btn-primary btn-sm float-right mr-2">Редактировать</a>
+                    <!-- Для скачивания в формате docx -->
+<a href="{% url 'download_syllabus_docx' syllabus_id=syllabus.id %}">Скачать в формате Word</a>
+
+<!-- Для скачивания в формате pdf -->
+<a href="{% url 'download_syllabus_pdf' syllabus_id=syllabus.id %}">Скачать в формате PDF</a>
+
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

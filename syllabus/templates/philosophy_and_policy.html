@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="mb-4">Шаг 6. Заполните Философию преподавания и обучения, Политику курса.</h2>
+
+    <form method="post" enctype="multipart/form-data" id="myForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form><br/><br/>
+
+{% endblock %}

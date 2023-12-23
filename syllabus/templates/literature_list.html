@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3 class="mb-4">Шаг 5. Заполните список литературы.</h3>
+    <div class="container mt-5">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+
+        <h2 class="mt-5"></h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Обязательная литература</th>
+                    <th>Интернет ресурсы</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for literature in literature_list %}
+                    <tr>
+                        <td>{{ literature.title }}</td>
+                        <td>{{ literature.author }}</td>
+                                                        <td>
+<form method="post" action="{% url 'delete_literature' syllabus_id=syllabus.id literature_id=literature.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Удалить</button>
+</form>
+                                    </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-secondary mt-3" href="{% url 'evaluation_system' syllabus_id=syllabus.id %}">Назад</a>
+        <a class="btn btn-secondary mt-3" href="{% url 'philosophy_and_policy' syllabus_id=syllabus.id %}">Далее</a>
+    </div><br/><br/>
+{% endblock %}
